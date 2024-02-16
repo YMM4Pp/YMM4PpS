@@ -58,7 +58,7 @@ namespace NumberText
 
             using var factory = DWrite.DWriteCreateFactory<IDWriteFactory>();
             var textFormat = factory.CreateTextFormat(font, fontSize);
-            textFormat.SetLineSpacing(LineSpacingMethod.Default,0,0);
+            textFormat.SetLineSpacing(LineSpacingMethod.Proportional,0,0);
             textFormat.WordWrapping = WordWrapping.NoWrap;
 
             var text = "";
