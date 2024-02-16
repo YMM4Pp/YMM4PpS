@@ -76,9 +76,8 @@ namespace NumberText
             else
             {
                 text = number.ToString("F" + decimalPlaces);
-            }            
+            }          
                      
-
             commandList?.Dispose();
             commandList = dc.CreateCommandList();
 
