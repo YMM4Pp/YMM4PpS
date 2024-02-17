@@ -6,12 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="SharpDX" Version="4.2.0" />
-    <PackageReference Include="SharpDX.Direct2D1" Version="4.2.0" />
-  </ItemGroup>
-
+	
   <ItemGroup>
     <Reference Include="SharpGen.Runtime">
       <HintPath>C:\ymm4\SharpGen.Runtime.dll</HintPath>

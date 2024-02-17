@@ -8,6 +8,8 @@ using YukkuriMovieMaker.Player.Video;
 using Vortice.Mathematics;
 using static Vortice.Direct2D1.D2D1;
 using static Vortice.DirectWrite.DWrite;
+using System.Windows;
+using System.Numerics;
 
 namespace NumberText
 {
@@ -56,9 +58,10 @@ namespace NumberText
 
             var dc = devices.DeviceContext;
 
-            using var factory = DWrite.DWriteCreateFactory<IDWriteFactory>();
-            var textFormat = factory.CreateTextFormat(font, fontSize);
-            textFormat.SetLineSpacing(LineSpacingMethod.Proportional,0,0);
+            using var formatFactory = DWrite.DWriteCreateFactory<IDWriteFactory>();
+            var textFormat = formatFactory.CreateTextFormat(font, fontSize);
+            textFormat.SetLineSpacing(LineSpacingMethod.Uniform,0,fontSize*0.8f);
+            
             textFormat.WordWrapping = WordWrapping.NoWrap;
 
             var text = "";
@@ -76,8 +79,11 @@ namespace NumberText
             else
             {
                 text = number.ToString("F" + decimalPlaces);
-            }          
-                     
+            }
+
+            using var layoutFactory = DWrite.DWriteCreateFactory<IDWriteFactory>();
+            var textLayout = layoutFactory.CreateTextLayout(text, textFormat, fontSize * (text.Length + 1), fontSize);
+
             commandList?.Dispose();
             commandList = dc.CreateCommandList();
 
@@ -85,7 +91,7 @@ namespace NumberText
             dc.BeginDraw();
             dc.Clear(null);
 
-            dc.DrawText(text, textFormat, new Rect(), brush, DrawTextOptions.NoSnap);
+            dc.DrawTextLayout(new System.Numerics.Vector2(0, 0), textLayout, brush);
 
             dc.EndDraw();
             dc.Target = null;
