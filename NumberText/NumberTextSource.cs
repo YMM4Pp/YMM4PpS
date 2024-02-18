@@ -60,8 +60,10 @@ namespace NumberText
 
             using var formatFactory = DWrite.DWriteCreateFactory<IDWriteFactory>();
             var textFormat = formatFactory.CreateTextFormat(font, fontSize);
-            textFormat.SetLineSpacing(LineSpacingMethod.Uniform,0,fontSize*0.8f);
-            
+            textFormat.SetLineSpacing(LineSpacingMethod.Uniform,0,fontSize*0.8f); // 上揃え
+            // textFormat.SetLineSpacing(LineSpacingMethod.Uniform,0,fontSize/2); // 中央揃え
+            // textFormat.SetLineSpacing(LineSpacingMethod.Uniform,0,0); // 下揃え
+
             textFormat.WordWrapping = WordWrapping.NoWrap;
 
             var text = "";
@@ -84,6 +86,13 @@ namespace NumberText
             using var layoutFactory = DWrite.DWriteCreateFactory<IDWriteFactory>();
             var textLayout = layoutFactory.CreateTextLayout(text, textFormat, fontSize * (text.Length + 1), fontSize);
 
+            var width = textLayout.Metrics.Width;
+            Int32 x;
+            x = 0; // 左揃え
+            // x = -(int)width / 2; // 中央揃え
+            // x = -(int)width; // 右揃え
+
+
             commandList?.Dispose();
             commandList = dc.CreateCommandList();
 
@@ -91,7 +100,7 @@ namespace NumberText
             dc.BeginDraw();
             dc.Clear(null);
 
-            dc.DrawTextLayout(new System.Numerics.Vector2(0, 0), textLayout, brush);
+            dc.DrawTextLayout(new System.Numerics.Vector2(x, 0), textLayout, brush);
 
             dc.EndDraw();
             dc.Target = null;

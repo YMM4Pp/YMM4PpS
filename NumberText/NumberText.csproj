@@ -28,8 +28,4 @@
     </Reference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="AlignmentControl\" />
-  </ItemGroup>
-
 </Project>
