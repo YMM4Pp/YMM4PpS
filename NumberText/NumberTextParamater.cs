@@ -10,6 +10,31 @@ using YukkuriMovieMaker.Project;
 
 namespace NumberText
 {
+    public enum TextAlignment
+    {
+        /// <summary>
+        /// Display属性を設定すると、EnumComboBoxに表示される名前を変更できます。
+        /// </summary>
+        [Display(Name = "左揃え　[上]")]
+        LeftTop,
+        [Display(Name = "中央揃え[上]")]
+        CenterTop,
+        [Display(Name = "右揃え　[上]")]
+        RightTop,
+        [Display(Name = "左揃え　[中]")]
+        LeftCenter,
+        [Display(Name = "中央揃え[中]")]
+        CenterCenter,
+        [Display(Name = "右揃え　[中]")]
+        RightCenter,
+        [Display(Name = "左揃え　[下]")]
+        LeftBottom,
+        [Display(Name = "中央揃え[下]")]
+        CenterBottom,
+        [Display(Name = "右揃え　[下]")]
+        RightBottom
+    }
+
     internal class NumberTextParamater : ShapeParameterBase
     {
         [Display(Name = "値", Description = "表示する数値")]
@@ -33,6 +58,11 @@ namespace NumberText
         [Display(Name = "サイズ", Description = "フォントのサイズ")]
         [AnimationSlider("F0", "px", 1, 100)]
         public Animation FontSize { get; } = new Animation(32);
+
+        [Display(Name = "文字揃え", Description = "文字を揃える方向を指定します")]
+        [EnumComboBox]
+        public TextAlignment Alignment { get => textAlignment; set => Set(ref textAlignment, value); }
+        TextAlignment textAlignment = TextAlignment.LeftTop;
 
         [Display(Name = "色", Description = "文字色")]
         [ColorPicker]
